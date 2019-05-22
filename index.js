@@ -10,11 +10,13 @@ const board = [
 
 document.addEventListener("DOMContentLoaded", init);
 
-const player1 = false;
-const player2 = true;
+let player1;
+let player2;
 
 function init() {
   const gameboard = document.getElementById("gameboard");
+  player1 = true;
+  player2 = false;
 
   for (let i = 0; i < board.length; i++) {
     const rowDiv = document.createElement("div");
@@ -44,31 +46,35 @@ function enterCoin(node, rowIndex, fieldIndex) {
   while (board[rowIndex][i] < 6) {
     if (board[rowIndex][i] === 0) {
       const divFields = getFields(rowIndex);
-      // checkWhosPlaying(board[rowIndex][i], divFields[i]);
-
-      //In andere functie zetten dat checkt of het speler 1 of 2 is?
-      //if(player === player1){value = 1 & geel} else {value = 2 & rood}
-      board[rowIndex][i] = 1;
-      divFields[i].value = 1;
-      divFields[i].classList.add("field__insert-coin-1");
+      const { value, className } = checkWhosPlaying();
+      // setting the board value
+      board[rowIndex][i] = value;
+      // setting the value of the field itself
+      divFields[i].value = value;
+      // adding class to the field
+      divFields[i].classList.add(className);
+      changePlayer();
       break;
     }
     i++;
   }
 }
 
-// function changePlayer(player) {}
+function changePlayer() {
+  player1 = !player1;
+  player2 = !player2;
+}
 
-// function checkWhosPlaying(boardValue, field) {
-//   if (player1) {
-//     boardValue = 1;
-//     field.value = 1;
-//     field.classList.add("field__insert-coin-1");
-//     // changePlayer()
-//   } else {
-//     boardValue = 2;
-//     field.value = 2;
-//     field.classList.add("field__insert-coin-2");
-//     // changePlayer()
-//   }
-// }
+function checkWhosPlaying() {
+  if (player1) {
+    return {
+      value: 1,
+      className: "field__insert-coin-1"
+    };
+  } else {
+    return {
+      value: 2,
+      className: "field__insert-coin-2"
+    };
+  }
+}

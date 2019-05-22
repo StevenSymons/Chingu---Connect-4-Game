@@ -4,22 +4,46 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: grey;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(204, 43, 94, 1) 0%,
+    rgba(117, 58, 136, 1) 100%
+  );
+  font-family: Arial;
 }
 
 #gameboard {
-  background-color: blue;
+  background-color: #7b0e8a;
   display: flex;
   padding: 20px;
   border-radius: 4px;
 }
 
 .start-button {
-  background-color: red;
+  background-image: linear-gradient(-20deg, #b721ff 0%, #21d4fd 100%);
   margin-bottom: 20px;
   border: none;
   padding: 10px;
   color: white;
+  font-weight: bold;
+  border-radius: 50px;
+  font-size: 16px;
+  margin-top: 20px;
+  width: 150px;
+  cursor: pointer;
+}
+
+.text {
+  color: white;
+  background-image: linear-gradient(-20deg, #b721ff 0%, #21d4fd 100%);
+  width: 500px;
+  padding: 20px;
+  border-radius: 50px;
+  text-align: center;
+  font-weight: bold;
+  border: 5px solid rgba(117, 58, 136, 0.5);
 }
 
 .column {
@@ -29,14 +53,14 @@ body {
 }
 
 .field {
-  height: 80px;
-  width: 80px;
+  height: 70px;
+  width: 70px;
   border: 1px solid black;
   border-radius: 50%;
   margin-left: 15px;
   margin-right: 15px;
   margin-bottom: 10px;
-  background-color: black;
+  background-color: #0b0d0c;
 }
 
 .field__insert-coin-1 {
