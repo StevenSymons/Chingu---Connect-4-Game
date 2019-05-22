@@ -1,4 +1,4 @@
-const board = [
+let board = [
   [0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0],
@@ -13,8 +13,13 @@ document.addEventListener("DOMContentLoaded", init);
 let player1;
 let player2;
 
+function reset() {
+  window.location.reload();
+}
+
 function init() {
   const gameboard = document.getElementById("gameboard");
+  document.querySelector("button").addEventListener("click", reset);
   player1 = true;
   player2 = false;
 
@@ -61,8 +66,16 @@ function enterCoin(node, rowIndex, fieldIndex) {
 }
 
 function changePlayer() {
-  player1 = !player1;
-  player2 = !player2;
+  const p = document.querySelector("p");
+  if (player1) {
+    player1 = false;
+    player2 = true;
+    p.textContent = "Player 2, please select a coin spot";
+  } else {
+    player1 = true;
+    player2 = false;
+    p.textContent = "Player 1, please select a coin spot";
+  }
 }
 
 function checkWhosPlaying() {
