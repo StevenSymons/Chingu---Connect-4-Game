@@ -59,6 +59,8 @@ function enterCoin(node, rowIndex, fieldIndex) {
       // adding class to the field
       divFields[i].classList.add(className);
       changePlayer();
+      checkForWinner();
+      console.log(board);
       break;
     }
     i++;
@@ -67,6 +69,7 @@ function enterCoin(node, rowIndex, fieldIndex) {
 
 function changePlayer() {
   const p = document.querySelector("p");
+
   if (player1) {
     player1 = false;
     player2 = true;
@@ -89,5 +92,51 @@ function checkWhosPlaying() {
       value: 2,
       className: "field__insert-coin-2"
     };
+  }
+}
+
+// als value van deze gelijk is aan value van erboven
+
+function checkForWinner() {
+  const p = document.querySelector("p");
+
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      if (board[i][j] !== 0) {
+        if (
+          board[i][j] === board[i][j + 1] &&
+          board[i][j] === board[i][j + 2] &&
+          board[i][j] === board[i][j + 3]
+        ) {
+          p.textContent = "We have a winner!";
+          console.log("we have a vertical winner!");
+          return;
+        } else if (
+          board[i][j] === board[i + 1][j] &&
+          board[i][j] === board[i + 2][j] &&
+          board[i][j] === board[i + 3][j]
+        ) {
+          p.textContent = "We have a winner!";
+          console.log("we have a horizontal winner!");
+          return;
+        } else if (
+          board[i][j] === board[i + 1][j + 1] &&
+          board[i][j] === board[i + 2][j + 2] &&
+          board[i][j] === board[i + 3][j + 3]
+        ) {
+          p.textContent = "We have a winner!";
+          console.log("we have a diagonal winner to the right!");
+          return;
+        } else if (
+          board[i][j] === board[i - 1][j + 1] &&
+          board[i][j] === board[i - 2][j + 2] &&
+          board[i][j] === board[i - 3][j + 3]
+        ) {
+          p.textContent = "We have a winner!";
+          console.log("we have a diagonal winner to the left!");
+          return;
+        }
+      }
+    }
   }
 }
