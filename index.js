@@ -37,6 +37,17 @@ function init() {
 
 // Retrieving all fields/nodes from a column
 
+function getAllFields() {
+  const className = Array.from(document.getElementsByClassName("field"));
+  for (let i = 0; i < className.length; i++) {
+    if (className[i].value === 0) {
+      console.log(className[i]);
+
+      className[i].classList.add("field__insert-coin-finish");
+    }
+  }
+}
+
 function getFields(columnIndex) {
   const className = Array.from(document.getElementsByClassName("column"))[
     columnIndex
@@ -113,6 +124,7 @@ function checkForWinner() {
           board[i][j] === board[i][j + 3]
         ) {
           p.textContent = "We have a winner!";
+          getAllFields();
           return;
         }
         if (i + 3 < 7) {
@@ -122,6 +134,7 @@ function checkForWinner() {
             board[i][j] === board[i + 3][j]
           ) {
             p.textContent = "We have a winner!";
+            getAllFields();
             return;
           } else if (
             board[i][j] === board[i + 1][j + 1] &&
@@ -129,6 +142,7 @@ function checkForWinner() {
             board[i][j] === board[i + 3][j + 3]
           ) {
             p.textContent = "We have a winner!";
+            getAllFields();
             return;
           }
           if (i - 3 >= 0) {
@@ -138,6 +152,7 @@ function checkForWinner() {
               board[i][j] === board[i - 3][j + 3]
             ) {
               p.textContent = "We have a winner!";
+              getAllFields();
               return;
             }
           }
@@ -152,3 +167,5 @@ function checkForWinner() {
 function reset() {
   window.location.reload();
 }
+
+function endGame() {}

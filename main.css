@@ -85,6 +85,7 @@ body {
   margin-right: 15px;
   margin-bottom: 10px;
   background-color: #0b0d0c;
+  cursor: pointer;
 }
 
 .field__insert-coin-1 {
@@ -93,6 +94,11 @@ body {
 
 .field__insert-coin-2 {
   background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
+}
+
+.field__insert-coin-finish {
+  background: grey;
+  cursor: default;
 }
 
 .field:last-child {
