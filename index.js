@@ -11,6 +11,7 @@ const board = [
 ];
 
 document.addEventListener("DOMContentLoaded", init);
+// const p = document.querySelector("p");
 
 // Initialize the game
 
@@ -35,18 +36,16 @@ function init() {
   }
 }
 
-// Retrieving all fields/nodes from a column
-
-function getAllFields() {
+function endGame() {
   const className = Array.from(document.getElementsByClassName("field"));
   for (let i = 0; i < className.length; i++) {
     if (className[i].value === 0) {
-      console.log(className[i]);
-
       className[i].classList.add("field__insert-coin-finish");
     }
   }
 }
+
+// Retrieving all fields/nodes from a column
 
 function getFields(columnIndex) {
   const className = Array.from(document.getElementsByClassName("column"))[
@@ -70,11 +69,24 @@ function enterCoin(node, columnIndex, fieldIndex) {
       divFields[i].value = value;
       // adding class to the field/node
       divFields[i].classList.add(className);
+      checkIfBoardFull();
       changePlayer();
       checkForWinner();
       break;
     }
     i++;
+  }
+}
+
+function checkIfBoardFull() {
+  const className = Array.from(
+    document.getElementsByClassName("field"),
+    x => x.value
+  );
+  containsEmptyField = className.includes(0);
+  if (!containsEmptyField) {
+    const p = document.querySelector("p");
+    setTimeout(() => (p.textContent = "It's a tie!"), 10);
   }
 }
 
@@ -124,7 +136,7 @@ function checkForWinner() {
           board[i][j] === board[i][j + 3]
         ) {
           p.textContent = "We have a winner!";
-          getAllFields();
+          endGame();
           return;
         }
         if (i + 3 < 7) {
@@ -134,7 +146,7 @@ function checkForWinner() {
             board[i][j] === board[i + 3][j]
           ) {
             p.textContent = "We have a winner!";
-            getAllFields();
+            endGame();
             return;
           } else if (
             board[i][j] === board[i + 1][j + 1] &&
@@ -142,7 +154,7 @@ function checkForWinner() {
             board[i][j] === board[i + 3][j + 3]
           ) {
             p.textContent = "We have a winner!";
-            getAllFields();
+            endGame();
             return;
           }
           if (i - 3 >= 0) {
@@ -152,7 +164,7 @@ function checkForWinner() {
               board[i][j] === board[i - 3][j + 3]
             ) {
               p.textContent = "We have a winner!";
-              getAllFields();
+              endGame();
               return;
             }
           }
@@ -167,5 +179,3 @@ function checkForWinner() {
 function reset() {
   window.location.reload();
 }
-
-function endGame() {}
