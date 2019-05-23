@@ -114,27 +114,33 @@ function checkForWinner() {
         ) {
           p.textContent = "We have a winner!";
           return;
-        } else if (
-          board[i][j] === board[i + 1][j] &&
-          board[i][j] === board[i + 2][j] &&
-          board[i][j] === board[i + 3][j]
-        ) {
-          p.textContent = "We have a winner!";
-          return;
-        } else if (
-          board[i][j] === board[i + 1][j + 1] &&
-          board[i][j] === board[i + 2][j + 2] &&
-          board[i][j] === board[i + 3][j + 3]
-        ) {
-          p.textContent = "We have a winner!";
-          return;
-        } else if (
-          board[i][j] === board[i - 1][j + 1] &&
-          board[i][j] === board[i - 2][j + 2] &&
-          board[i][j] === board[i - 3][j + 3]
-        ) {
-          p.textContent = "We have a winner!";
-          return;
+        }
+        if (i + 3 < 7) {
+          if (
+            board[i][j] === board[i + 1][j] &&
+            board[i][j] === board[i + 2][j] &&
+            board[i][j] === board[i + 3][j]
+          ) {
+            p.textContent = "We have a winner!";
+            return;
+          } else if (
+            board[i][j] === board[i + 1][j + 1] &&
+            board[i][j] === board[i + 2][j + 2] &&
+            board[i][j] === board[i + 3][j + 3]
+          ) {
+            p.textContent = "We have a winner!";
+            return;
+          }
+          if (i - 3 >= 0) {
+            if (
+              board[i][j] === board[i - 1][j + 1] &&
+              board[i][j] === board[i - 2][j + 2] &&
+              board[i][j] === board[i - 3][j + 3]
+            ) {
+              p.textContent = "We have a winner!";
+              return;
+            }
+          }
         }
       }
     }
