@@ -1,4 +1,6 @@
-let board = [
+let player1;
+let player2;
+const board = [
   [0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0],
@@ -10,12 +12,7 @@ let board = [
 
 document.addEventListener("DOMContentLoaded", init);
 
-let player1;
-let player2;
-
-function reset() {
-  window.location.reload();
-}
+// Initialize the game
 
 function init() {
   const gameboard = document.getElementById("gameboard");
@@ -24,48 +21,53 @@ function init() {
   player2 = false;
 
   for (let i = 0; i < board.length; i++) {
-    const rowDiv = document.createElement("div");
-    rowDiv.classList.add("column");
-    gameboard.appendChild(rowDiv);
+    const columnDiv = document.createElement("div");
+    columnDiv.classList.add("column");
+    gameboard.appendChild(columnDiv);
 
     for (let j = board[i].length - 1; j >= 0; j--) {
       const fieldDiv = document.createElement("div");
       fieldDiv.classList.add("field");
       fieldDiv.value = 0;
       fieldDiv.addEventListener("click", e => enterCoin(e.target, i, j));
-      rowDiv.appendChild(fieldDiv);
+      columnDiv.appendChild(fieldDiv);
     }
   }
 }
 
-function getFields(rowIndex) {
+// Retrieving all fields/nodes from a column
+
+function getFields(columnIndex) {
   const className = Array.from(document.getElementsByClassName("column"))[
-    rowIndex
+    columnIndex
   ];
   const divFields = Array.from(className.children).reverse();
   return divFields;
 }
 
-function enterCoin(node, rowIndex, fieldIndex) {
+// Enter a coin into the gameboard
+
+function enterCoin(node, columnIndex, fieldIndex) {
   let i = 0;
-  while (board[rowIndex][i] < 6) {
-    if (board[rowIndex][i] === 0) {
-      const divFields = getFields(rowIndex);
+  while (board[columnIndex][i] < 6) {
+    if (board[columnIndex][i] === 0) {
+      const divFields = getFields(columnIndex);
       const { value, className } = checkWhosPlaying();
       // setting the board value
-      board[rowIndex][i] = value;
-      // setting the value of the field itself
+      board[columnIndex][i] = value;
+      // setting the value of the field/node itself
       divFields[i].value = value;
-      // adding class to the field
+      // adding class to the field/node
       divFields[i].classList.add(className);
       changePlayer();
       checkForWinner();
-      console.log(board);
       break;
     }
     i++;
   }
 }
+
+// Change player
 
 function changePlayer() {
   const p = document.querySelector("p");
@@ -81,6 +83,8 @@ function changePlayer() {
   }
 }
 
+// Check who is currently play to get the appropriate value & class for the clicked field
+
 function checkWhosPlaying() {
   if (player1) {
     return {
@@ -95,7 +99,7 @@ function checkWhosPlaying() {
   }
 }
 
-// als value van deze gelijk is aan value van erboven
+// Checking to see if there is a winner (vertical, horizontal, diagonal)
 
 function checkForWinner() {
   const p = document.querySelector("p");
@@ -109,7 +113,6 @@ function checkForWinner() {
           board[i][j] === board[i][j + 3]
         ) {
           p.textContent = "We have a winner!";
-          console.log("we have a vertical winner!");
           return;
         } else if (
           board[i][j] === board[i + 1][j] &&
@@ -117,7 +120,6 @@ function checkForWinner() {
           board[i][j] === board[i + 3][j]
         ) {
           p.textContent = "We have a winner!";
-          console.log("we have a horizontal winner!");
           return;
         } else if (
           board[i][j] === board[i + 1][j + 1] &&
@@ -125,7 +127,6 @@ function checkForWinner() {
           board[i][j] === board[i + 3][j + 3]
         ) {
           p.textContent = "We have a winner!";
-          console.log("we have a diagonal winner to the right!");
           return;
         } else if (
           board[i][j] === board[i - 1][j + 1] &&
@@ -133,10 +134,15 @@ function checkForWinner() {
           board[i][j] === board[i - 3][j + 3]
         ) {
           p.textContent = "We have a winner!";
-          console.log("we have a diagonal winner to the left!");
           return;
         }
       }
     }
   }
+}
+
+// Reset the game
+
+function reset() {
+  window.location.reload();
 }
